@@ -94,7 +94,7 @@ async fn explain(ctx: &Context, msg: &Message) -> CommandResult {
                 .collect();
 
         // sort the list in a descending order, best match & shortest word first
-        result_lst.sort_by(|a, b| b.partial_cmp(a).unwrap());
+        result_lst.sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap().then(a.1.cmp(&b.1)));
 
         let res = if !result_lst.is_empty() {
             DEF_HASHMAP
